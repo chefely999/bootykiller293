@@ -10,94 +10,92 @@ CSC 119
 This program lets the user play the Nim game against the computer
 
 """
-from random import randint
 
 
-def introducePlayer():
-    user=input("Hello whats your name?")
-    print("Hello,",user,"!! welcome to the Nim Game today you will be playing against computer")
 
-def howToPlay():
-    askHowToPlay=input("Do you know how to play Nim game?(Y/N)")
-    if askHowToPlay=="N":
-        print("""*****I will gladly explan!!*****
-You must remove 1 to 2 marbles from the pile at a time.
-If you remove the final marble you lose!
-GOOD LUCK!!!""")
+from random import seed,randint
+def main():                     # definition of main program
+    seed()                      # initialize the random number generator for the game play
+
+    # -------------------------------------------------------
+    # INPUT - to randomize the game play
+# -------------------------------------------------------
+    ballCount = randint(10, 100)# randomly generate the amount of balls to play
+    turn = randint(0,1)         # randomly generate who goes first (0) player (1) computer
+    mode = randint(0,1)         # randomly generate mode of computer (0) smart (1) stupid
+
+    # -------------------------------------------------------
+    # PROCESS - play the game of NIM taking turns
+    # -------------------------------------------------------
+    print("***** Game of NIM Starts *****")
+    while ballCount > 0:        # if there are still balls left, then keep playing
+        print("\t\tBall count:", ballCount)
+        if turn == 0:           # player turn
+            print("\n\tPLAYER TURN")
+            playerTurn(ballCount)# TODO: call the playerTurn function 
+            turn = 1            # switch the turn 1 - for computer turn next
+        else:                   # computer turn
+            if mode == 0:       # computer smart mode
+                print("\n\tCOMPUTER TURN - Mode: Smart")
+                computerSmart(ballCount) # TODO: call the computerSmart function
+            else:               # computer hard mode
+                print("\n\tCOMPUTER TURN - Mode: Stupid")
+                # TODO: call the computerStupid function
+            turn = 0            # switch the turn 0 - for player turn next
+        # TODO: ballCount needs to be updated for each turn
+                
+    # -------------------------------------------------------
+    # OUTPUT - The player who takes the last ball loses.
+    # once the ballCount goes to 0, the turn switches, so it is the other
+    # player then that wins
+    # -------------------------------------------------------
+    print("\t\tBall count:", ballCount)
+    if turn == 0 and ballCount == 0:
+        print("\n***** GAME of NIM Winner! PLAYER *****\n\n")
     else:
-            print("Enjoy the game,GOODLUCK!")
+        print("\n***** Game of NIM Winner! COMPUTER *****\n\n")
 
+def playerTurn():
+    playerTake=int(input("How many balls would you like to take?(1,2,or 3)"))
+    if playerTake==1:
+        ballCount=ballCount-1
+        print("Ball Count:",ballCount)
+        
+    if playerTake==2:
+        ballCount=ballCount-2
+        print("Ball Count:",ballCount)
+       
+        
+    else:
+        ballCount=ballCount-3
+        print("Ball Count:",ballCount)
+     
+    
+    
 
-secondPlayer="Computer"
-marblePick=0
-gameOver=False
-marbleAmount=randint(1,50)
+def computerSmart():
+    computerTurn=randint(1,3)
+    ballCount=ballCount-computerTurn
+    return ballCount
 
-if(marbleAmount%4)==1:
-    marbleAmount+=1
-
-
-def takingMarblesComputer():
-    takingMarbles=randint(1,2)
-    global marbleAmount
-    while takingMarbles>marbleAmount:
-        takingMarble=randint(1,2)
-        marbleAmount-=takingMarble
-        return marbleAmount
-
-def takingMarblePlayer():
-    global MarbleAmount
-    marbleAmount-=marblePick
-    return marbleAmount
-
-def validInputs():
-    global marblePicks
-    validInput=False
-    while not validInput:
-        print("Your turn,",user)
-        marplePick=int(input("How many marbles would you like to take?(1 or 2"))
-        if marblePick==1 or marblePick==2:
-            print("You took",marblePick,"marbles!")
-        else:
-            validInput=True
-    while marblePick>marbleAmount:
-        print("That's too many marbles!")
-        marblePick=int(input("How many marbles would you like to take?(1 or 2"))
-    return marblePick
-
-def winnerChickenDinner(player):
-    if marbleAmount==0:
-        print("Congrats",player,"you beat computer!!")
-        global gameOver
-        gameOver=False
+def validInput():
+    playerTake=int(input("How many balls would you like to take?(1,2,or 3)"))
+    if playerTake!=int:
+        print("Please enter a valid number 1,2, or 3")
+    else:
+        computerTakeBall()
 def playAgain():
-    global gameOver
-    gameOver=False
-    return gameOver
-
-def main():
-    user=input
-    while gameOver==False:
-        print("It's Computers turn! There are:",takingMarblesComputer(),"marbles left")
-        winnerChickenDinner(user)
-        if gameOver==True:
-            break
-        validInputs()
-        print("There are still",takingMarblePlayer,"marbles left")
-        winnerChickenDinner(secondPlayer)
-
-def playerPlayAgain():
-    playAgain=input(user,"would you like to play again?(Y/N)")
-    playagain()
-    if answer=="Y":
-        game()
+    if ballCount==0:
+        print("Would you like to play again?(Y/N)")
+    if len.upper=="Y":
+        main()
     else:
-        print("Thank you for playing you did great today!")
-main()
-playAgain()
+        print("Have a nice day!Thank You for playing!")
+    
+        
+        
 
-
-
+main()          # execution of main program
 
 
 
