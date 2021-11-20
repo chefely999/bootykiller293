@@ -1,12 +1,10 @@
-\"""
+"""
 Game of Nim from Python for Everyone 3rd edition
-"""
-
-
-
-"""
 main() written by: Joseph Adams
-This main function is the game play driver for Game of NIM.
+rest writen by:Brooke,Ely,Luke
+CSC119
+Finished date:11/19/2021
+This main function is the game play driver for Game of NIM and allow difficulties for the AI
 """
 from random import seed, randint
 def main():                     # definition of main program
